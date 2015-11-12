@@ -1,2 +1,2 @@
-# moodle-local_mumag
-Moodle Multisite User Managament
+# moodle-local_saml_site
+Moodle SAML Site
