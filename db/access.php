@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 /**
- * @package    local_mumag
+ * @package    local_saml_site
  * @copyright  2015, Andraž Prinčič <atletek@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v2 or later
  */
@@ -23,7 +23,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $capabilities = array(
     // Add or remove users from course.
-    'local/mumag:addorremoveusers' => array(
+    'local/saml_site:addorremoveusers' => array(
         'riskbitmask' => RISK_DATALOSS,
         'captype' => 'write',
         'contextlevel' => CONTEXT_COURSE,
@@ -32,7 +32,7 @@ $capabilities = array(
         )
     ),
     // Add new rules
-    'local/mumag:addrules' => array(
+    'local/saml_site:addrules' => array(
         'riskbitmask' => RISK_DATALOSS,
         'captype' => 'write',
         'contextlevel' => CONTEXT_SYSTEM,

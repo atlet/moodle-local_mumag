@@ -15,11 +15,11 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 /**
- * @package    local_mumag
+ * @package    local_saml_site
  * @copyright  2015, Andraž Prinčič <atletek@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v2 or later
  */
 
-$string['pluginname'] = 'Multisite User Managament';
+$string['pluginname'] = 'SAML Site';
 $string['menuname'] = 'Enrol users';
 $string['adminmenutitle'] = 'Enrol users permissions';

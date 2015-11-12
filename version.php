@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 /**
- * @package    local_mumag
+ * @package    local_saml_site
  * @copyright  2015, Andraž Prinčič <atletek@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v2 or later
  */
@@ -23,6 +23,6 @@ defined('MOODLE_INTERNAL') || die();
 
 $plugin->version = 2015111002;
 $plugin->requires = 2013111800; // Moodle 2.6.0 or newer
-$plugin->component = 'local_mumag';
+$plugin->component = 'local_saml_site';
 $plugin->maturity = MATURITY_ALPHA;
 $plugin->release = '0.1';

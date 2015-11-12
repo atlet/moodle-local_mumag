@@ -14,12 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 /**
- * @package    local_mumag
+ * @package    local_saml_site
  * @copyright  2015, Andraž Prinčič <atletek@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v2 or later
  */
 require('../../config.php');
-require_once($CFG->dirroot . '/local/mumag/locallib.php');
+require_once($CFG->dirroot . '/local/saml_site/locallib.php');
 
 $id = required_param('id', PARAM_INT);
 $roleid = optional_param('roleid', -1, PARAM_INT);
@@ -28,10 +28,10 @@ $extendbase = optional_param('extendbase', 3, PARAM_INT);
 
 require_login($id);
 $context = context_course::instance($id, MUST_EXIST);
-$canenrol = has_capability('local/mumag:addorremoveusers', $context);
+$canenrol = has_capability('local/saml_site:addorremoveusers', $context);
 
 if (!$canenrol) {
-    require_capability('local/mumag:addorremoveusers', $context);
+    require_capability('local/saml_site:addorremoveusers', $context);
 }
 
 $instance = $DB->get_record('enrol', array('courseid'=>$id, 'enrol'=>'manual'), '*', MUST_EXIST);
@@ -56,11 +56,11 @@ if (!$enrol_manual = enrol_get_plugin('manual')) {
 
 $instancename = $enrol_manual->get_instance_name($instance);
 
-$PAGE->set_url('/local/mumag/usermanager.php', array('id' => $id));
+$PAGE->set_url('/local/saml_site/usermanager.php', array('id' => $id));
 $PAGE->set_pagelayout('admin');
 $PAGE->set_title($enrol_manual->get_instance_name($instance));
 $PAGE->set_heading($course->fullname);
-navigation_node::override_active_url(new moodle_url('/local/mumag/usermanager.php', array('id' => $id)));
+navigation_node::override_active_url(new moodle_url('/local/saml_site/usermanager.php', array('id' => $id)));
 
 // Create the user selector objects.
 $options = array('enrolid' => $instance->id, 'accesscontext' => $context);

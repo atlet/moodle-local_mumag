@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 /**
- * @package    local_mumag
+ * @package    local_saml_site
  * @copyright  2015, Andraž Prinčič <atletek@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v2 or later
  */
@@ -83,7 +83,7 @@ class enrol_manual_potential_participant extends user_selector_base {
     protected function get_options() {
         $options = parent::get_options();
         $options['enrolid'] = $this->enrolid;
-        $options['file']    = 'local/mumag/locallib.php';
+        $options['file']    = 'local/saml_site/locallib.php';
         return $options;
     }
 }
@@ -147,7 +147,7 @@ class enrol_manual_current_participant extends user_selector_base {
     protected function get_options() {
         $options = parent::get_options();
         $options['enrolid'] = $this->enrolid;
-        $options['file']    = 'local/mumag/locallib.php';
+        $options['file']    = 'local/saml_site/locallib.php';
         return $options;
     }
 }
