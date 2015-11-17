@@ -1,6 +1,6 @@
 <?php
 
-// This file is part of the Mumag plugin for Moodle - http://moodle.org/
+// This file is part of the SAML Site plugin for Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -29,9 +29,11 @@ require_once($CFG->dirroot . '/enrol/locallib.php');
  */
 class enrol_manual_potential_participant extends user_selector_base {
     protected $enrolid;
+    protected $rules;
 
     public function __construct($name, $options) {
         $this->enrolid  = $options['enrolid'];
+        $this->rules = $options['rules'];
         parent::__construct($name, $options);
     }
 
@@ -40,18 +42,33 @@ class enrol_manual_potential_participant extends user_selector_base {
      * @param string $search
      * @return array
      */
-    public function find_users($search) {
+    public function find_users($search) {        
         global $DB;
+        $rules = $this->get_options();
+        $rules = $rules['rules'];
         // By default wherecondition retrieves all users except the deleted, not confirmed and guest.
         list($wherecondition, $params) = $this->search_sql($search, 'u');
         $params['enrolid'] = $this->enrolid;
+        
+        $additionalWhere = '';
+        
+        if ($rules) {
+            switch ($rules->ruletype) {
+                case 1:
+                    $additionalWhere = " AND substring_index(username, '@', -1) = '" . $rules->rule . "'";
+                    break;
+
+                default:
+                    break;
+            }
+        }
 
         $fields      = 'SELECT ' . $this->required_fields_sql('u');
         $countfields = 'SELECT COUNT(1)';
 
         $sql = " FROM {user} u
             LEFT JOIN {user_enrolments} ue ON (ue.userid = u.id AND ue.enrolid = :enrolid)
-                WHERE $wherecondition
+                WHERE $wherecondition $additionalWhere
                       AND ue.id IS NULL";
 
         list($sort, $sortparams) = users_order_by_sql('u', $search, $this->accesscontext);
@@ -84,6 +101,7 @@ class enrol_manual_potential_participant extends user_selector_base {
         $options = parent::get_options();
         $options['enrolid'] = $this->enrolid;
         $options['file']    = 'local/saml_site/locallib.php';
+        $options['rules'] = $this->rules;
         return $options;
     }
 }

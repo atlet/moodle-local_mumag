@@ -1,6 +1,6 @@
 <?php
 
-// This file is part of the Mumag plugin for Moodle - http://moodle.org/
+// This file is part of the SAML Site plugin for Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by

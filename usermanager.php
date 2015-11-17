@@ -1,5 +1,5 @@
 <?php
-// This file is part of the Mumag plugin for Moodle - http://moodle.org/
+// This file is part of the SAML Site plugin for Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -28,6 +28,7 @@ $extendbase = optional_param('extendbase', 3, PARAM_INT);
 
 require_login($id);
 $context = context_course::instance($id, MUST_EXIST);
+
 $canenrol = has_capability('local/saml_site:addorremoveusers', $context);
 
 if (!$canenrol) {
@@ -37,6 +38,21 @@ if (!$canenrol) {
 $instance = $DB->get_record('enrol', array('courseid'=>$id, 'enrol'=>'manual'), '*', MUST_EXIST);
 
 $course = $DB->get_record('course', array('id' => $id));
+
+$category = $DB->get_record('course_categories', array('id' =>$course->category));
+
+$cats = array_reverse(array_filter(explode('/', $category->path)));
+
+$rules = FALSE;
+
+foreach ($cats as $cat) {
+    $rules = $DB->get_record('local_saml_site', array('mdl_course_categories_id' => $cat));
+    
+    if ($rules) {
+        break;
+    }
+}
+
 $info = get_fast_modinfo($course);
 //print_object($info);
 
@@ -63,7 +79,7 @@ $PAGE->set_heading($course->fullname);
 navigation_node::override_active_url(new moodle_url('/local/saml_site/usermanager.php', array('id' => $id)));
 
 // Create the user selector objects.
-$options = array('enrolid' => $instance->id, 'accesscontext' => $context);
+$options = array('enrolid' => $instance->id, 'accesscontext' => $context, 'rules' => $rules);
 
 $potentialuserselector = new enrol_manual_potential_participant('addselect', $options);
 $currentuserselector = new enrol_manual_current_participant('removeselect', $options);
@@ -142,6 +158,7 @@ if (optional_param('remove', false, PARAM_BOOL) && confirm_sesskey()) {
 
 echo $OUTPUT->header();
 echo $OUTPUT->heading($instancename);
+if ($rules) {
 ?>
 <form id="assignform" method="post" action="<?php echo $PAGE->url ?>"><div>
         <input type="hidden" name="sesskey" value="<?php echo sesskey() ?>" />
@@ -188,4 +205,7 @@ echo $OUTPUT->heading($instancename);
         </table>
     </div></form>
 <?php
+} else {
+    echo "<p>" . get_string('setupfilter', 'local_saml_site') . "</p>";
+}
 echo $OUTPUT->footer();

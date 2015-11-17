@@ -1,6 +1,6 @@
 <?php
 
-// This file is part of the Mumag plugin for Moodle - http://moodle.org/
+// This file is part of the SAML Site plugin for Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -44,7 +44,7 @@ function local_saml_site_extends_settings_navigation($settingsnav, $context) {
         $settingnode = $settingsnav->find('root', navigation_node::TYPE_SITE_ADMIN);
         if ($settingnode) {
             $setMotdMenuLbl = get_string('adminmenutitle', 'local_saml_site');
-            $setMotdUrl = new moodle_url('/local/saml_site/settings.php');
+            $setMotdUrl = new moodle_url('/local/saml_site/samlsitepermissions.php');
             $setMotdnode = navigation_node::create(
                             $setMotdMenuLbl, $setMotdUrl, navigation_node::NODETYPE_LEAF, 'saml_site', 'saml_site',
                             new pix_icon('i/settings', $setMotdMenuLbl));

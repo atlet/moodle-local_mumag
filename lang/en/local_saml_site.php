@@ -1,6 +1,6 @@
 <?php
 
-// This file is part of the Mumag plugin for Moodle - http://moodle.org/
+// This file is part of the SAML Site plugin for Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,3 +23,12 @@
 $string['pluginname'] = 'SAML Site';
 $string['menuname'] = 'Enrol users';
 $string['adminmenutitle'] = 'Enrol users permissions';
+$string['addnewpermission'] = 'Add new permission';
+$string['selectcategory'] = 'Category';
+$string['ruletype'] = 'Rule type';
+$string['rule'] = 'Rule';
+$string['usernamedomainname'] = 'Username domain name';
+$string['sucesfulldeleted'] = 'Sucesfully deleted!';
+$string['edit'] = 'Edit';
+$string['delete'] = 'Delete';
+$string['setupfilter'] = 'Please, setup filter to show data!';
