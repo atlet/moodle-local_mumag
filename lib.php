@@ -26,7 +26,7 @@ function local_saml_site_extends_settings_navigation($settingsnav, $context) {
 
     // Only let users with the appropriate capability see this settings item.
     if (has_capability('local/saml_site:addorremoveusers', context_course::instance($PAGE->course->id))) {
-        if ($settingnode = $settingsnav->find('courseadmin', navigation_node::TYPE_COURSE)) {
+        if ($settingnode = $settingsnav->find('users', navigation_node::TYPE_CONTAINER)) {
             $url = new moodle_url('/local/saml_site/usermanager.php', array('id' => $PAGE->course->id));
             $strfoo = get_string('menuname', 'local_saml_site');
             $foonode = navigation_node::create(

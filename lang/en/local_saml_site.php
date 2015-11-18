@@ -21,7 +21,7 @@
  */
 
 $string['pluginname'] = 'SAML Site';
-$string['menuname'] = 'Enrol users';
+$string['menuname'] = 'Institution users';
 $string['adminmenutitle'] = 'Enrol users permissions';
 $string['addnewpermission'] = 'Add new permission';
 $string['selectcategory'] = 'Category';
