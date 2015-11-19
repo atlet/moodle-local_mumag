@@ -28,11 +28,12 @@ require_once($CFG->dirroot . '/enrol/locallib.php');
  * Enrol candidates.
  */
 class enrol_manual_potential_participant extends user_selector_base {
+
     protected $enrolid;
     protected $rules;
 
     public function __construct($name, $options) {
-        $this->enrolid  = $options['enrolid'];
+        $this->enrolid = $options['enrolid'];
         $this->rules = $options['rules'];
         parent::__construct($name, $options);
     }
@@ -42,29 +43,39 @@ class enrol_manual_potential_participant extends user_selector_base {
      * @param string $search
      * @return array
      */
-    public function find_users($search) {        
+    public function find_users($search) {
         global $DB;
         $rules = $this->get_options();
         $rules = $rules['rules'];
         // By default wherecondition retrieves all users except the deleted, not confirmed and guest.
         list($wherecondition, $params) = $this->search_sql($search, 'u');
         $params['enrolid'] = $this->enrolid;
-        
-        $additionalWhere = '';
-        
-        if ($rules) {
-            switch ($rules->ruletype) {
-                case 1:
-                    $additionalWhere = " AND substring_index(username, '@', -1) = '" . $rules->rule . "'";
-                    break;
 
-                default:
-                    break;
+        $additionalWhere = array();
+
+        $allrules = $DB->get_records('local_saml_site_rules', array('local_saml_site_id' => $rules->id));
+
+        if ($allrules) {
+            foreach ($allrules as $value) {
+                switch ($value->ruletype) {
+                    case 1:
+                        $additionalWhere[] = "substring_index(username, '@', -1) = '" . $value->rule . "'";
+                        break;
+
+                    default:
+                        break;
+                }
             }
         }
 
-        $fields      = 'SELECT ' . $this->required_fields_sql('u');
+        $fields = 'SELECT ' . $this->required_fields_sql('u');
         $countfields = 'SELECT COUNT(1)';
+
+        if (!empty($additionalWhere)) {
+            $additionalWhere = " AND (" . implode(' OR ', $additionalWhere) . ")";
+        } else {
+            $additionalWhere = '';
+        }
 
         $sql = " FROM {user} u
             LEFT JOIN {user_enrolments} ue ON (ue.userid = u.id AND ue.enrolid = :enrolid)
@@ -100,21 +111,23 @@ class enrol_manual_potential_participant extends user_selector_base {
     protected function get_options() {
         $options = parent::get_options();
         $options['enrolid'] = $this->enrolid;
-        $options['file']    = 'local/saml_site/locallib.php';
+        $options['file'] = 'local/saml_site/locallib.php';
         $options['rules'] = $this->rules;
         return $options;
     }
+
 }
 
 /**
  * Enrolled users.
  */
 class enrol_manual_current_participant extends user_selector_base {
+
     protected $courseid;
     protected $enrolid;
 
     public function __construct($name, $options) {
-        $this->enrolid  = $options['enrolid'];
+        $this->enrolid = $options['enrolid'];
         parent::__construct($name, $options);
     }
 
@@ -129,7 +142,7 @@ class enrol_manual_current_participant extends user_selector_base {
         list($wherecondition, $params) = $this->search_sql($search, 'u');
         $params['enrolid'] = $this->enrolid;
 
-        $fields      = 'SELECT ' . $this->required_fields_sql('u');
+        $fields = 'SELECT ' . $this->required_fields_sql('u');
         $countfields = 'SELECT COUNT(1)';
 
         $sql = " FROM {user} u
@@ -165,7 +178,8 @@ class enrol_manual_current_participant extends user_selector_base {
     protected function get_options() {
         $options = parent::get_options();
         $options['enrolid'] = $this->enrolid;
-        $options['file']    = 'local/saml_site/locallib.php';
+        $options['file'] = 'local/saml_site/locallib.php';
         return $options;
     }
+
 }

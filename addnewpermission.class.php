@@ -10,9 +10,6 @@ class local_saml_site_addnewpermission_form extends moodleform {
 
     function definition() {
         global $CFG, $DB;
-        
-        $rulestype = array();
-        $rulestype[1] = get_string('usernamedomainname', 'local_saml_site'); 
 
         $categories = $DB->get_records('course_categories');
 
@@ -24,14 +21,6 @@ class local_saml_site_addnewpermission_form extends moodleform {
 
         //-------------------------------------------------------------------------------
         $mform->addElement('header', 'general', get_string('general', 'form'));
-
-        $mform->addElement('select', 'ruletype', get_string('ruletype', 'local_saml_site'), $rulestype);
-        $mform->setDefault('ruletype', 1);
-        $mform->addRule('ruletype', null, 'required', null, 'client');
-        
-        $mform->addElement('text', 'rule', get_string('rule', 'local_saml_site'), array('size' => '64'));
-        $mform->addRule('rule', null, 'required', null, 'client');
-        $mform->setType('rule', PARAM_TEXT);
 
         $mform->addElement('select', 'mdl_course_categories_id', get_string('selectcategory', 'local_saml_site'), $options);
         $mform->setDefault('mdl_course_categories_id', 0);

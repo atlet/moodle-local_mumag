@@ -23,7 +23,7 @@
 $string['pluginname'] = 'SAML Site';
 $string['menuname'] = 'Institution users';
 $string['adminmenutitle'] = 'Enrol users permissions';
-$string['addnewpermission'] = 'Add new permission';
+$string['addnewpermission'] = 'Add new category';
 $string['selectcategory'] = 'Category';
 $string['ruletype'] = 'Rule type';
 $string['rule'] = 'Rule';
@@ -32,3 +32,7 @@ $string['sucesfulldeleted'] = 'Sucesfully deleted!';
 $string['edit'] = 'Edit';
 $string['delete'] = 'Delete';
 $string['setupfilter'] = 'Please, setup filter to show data!';
+$string['permissions'] = 'Permissions';
+$string['addnewcategorypermission'] = 'Add new rule';
+$string['siterulesfor'] = 'Site rules for';
+$string['backtocategories'] = 'Back to categories';

@@ -2,7 +2,7 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-class all_permisions extends table_sql {
+class list_permisions extends table_sql {
 
     var $rulestype = array();    
     
@@ -15,14 +15,16 @@ class all_permisions extends table_sql {
         parent::__construct($uniqueid);
         // Define the list of columns to show.
         $columns = array(
-            'name', 
+            'ruletype', 
+            'rule',
             'selected'
         );
         $this->define_columns($columns);
 
         // Define the titles of columns to show in header.
         $headers = array(
-            get_string('selectcategory', 'local_saml_site'),
+            get_string('ruletype', 'local_saml_site'),
+            get_string('rule', 'local_saml_site'),
             ''
         );
         $this->define_headers($headers);
@@ -48,9 +50,10 @@ class all_permisions extends table_sql {
 
     function col_selected($values) {
         if (!$this->is_downloading()) {
-            $permissions = "<a href=\"listpermission.php?cid=$values->id\">" . get_string('permissions', 'local_saml_site') . '</a>';
+            $edit = "<a href=\"addnewrule.php?cid=$values->local_saml_site_id&id=$values->id\">" . get_string('edit', 'local_saml_site') . '</a>';
+            $delete = "<a href=\"addnewrule.php?cid=$values->local_saml_site_id&id=$values->id&delete=1\">" . get_string('delete', 'local_saml_site') . '</a>';
             
-            return "{$permissions}";
+            return "{$edit} | {$delete}";
         } else {
             return '';
         }
