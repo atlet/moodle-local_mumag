@@ -9,9 +9,9 @@ require_once $CFG->libdir . '/formslib.php';
 class local_saml_site_addnewpermission_form extends moodleform {
 
     function definition() {
-        global $CFG, $DB;
+        global $DB;
 
-        $categories = $DB->get_records('course_categories');
+        $categories = $DB->get_records_sql('SELECT id, name FROM {course_categories} WHERE depth = 1 AND id NOT IN (SELECT {course_categories_id} FROM mdl_local_saml_site)');
 
         foreach ($categories as $category) {
             $options[$category->id] = $category->name;
