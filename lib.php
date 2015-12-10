@@ -24,22 +24,6 @@ defined('MOODLE_INTERNAL') || die();
 function local_saml_site_extends_settings_navigation($settingsnav, $context) {
     global $CFG, $PAGE;
 
-    // Only let users with the appropriate capability see this settings item.
-    if (has_capability('local/saml_site:addorremoveusers', context_course::instance($PAGE->course->id))) {
-        if ($settingnode = $settingsnav->find('users', navigation_node::TYPE_CONTAINER)) {
-            $url = new moodle_url('/local/saml_site/usermanager.php', array('id' => $PAGE->course->id));
-            $strfoo = get_string('menuname', 'local_saml_site');
-            $foonode = navigation_node::create(
-                            $strfoo, $url, navigation_node::NODETYPE_LEAF, 'saml_site', 'saml_site',
-                            new pix_icon('i/enrolusers', $strfoo)
-            );
-            if ($PAGE->url->compare($url, URL_MATCH_BASE)) {
-                $foonode->make_active();
-            }
-            $settingnode->add_node($foonode);
-        }
-    }
-
     if (has_capability('local/saml_site:addrules', context_course::instance($PAGE->course->id))) {
         $settingnode = $settingsnav->find('root', navigation_node::TYPE_SITE_ADMIN);
         if ($settingnode) {

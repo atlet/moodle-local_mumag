@@ -22,15 +22,6 @@
 defined('MOODLE_INTERNAL') || die();
 
 $capabilities = array(
-    // Add or remove users from course.
-    'local/saml_site:addorremoveusers' => array(
-        'riskbitmask' => RISK_DATALOSS,
-        'captype' => 'write',
-        'contextlevel' => CONTEXT_COURSE,
-        'archetypes' => array(
-            'manager' => CAP_ALLOW
-        )
-    ),
     // Add new rules
     'local/saml_site:addrules' => array(
         'riskbitmask' => RISK_DATALOSS,
