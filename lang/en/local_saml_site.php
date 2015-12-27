@@ -36,3 +36,5 @@ $string['permissions'] = 'Permissions';
 $string['addnewcategorypermission'] = 'Add new rule';
 $string['siterulesfor'] = 'Site rules for';
 $string['backtocategories'] = 'Back to categories';
+$string['customfield'] = 'Custom profile field';
+$string['customprofilefield'] = 'Custom field';

@@ -34,6 +34,7 @@ class list_permisions extends table_sql {
         $this->pageable(true);
         
         $this->rulestype[1] = get_string('usernamedomainname', 'local_saml_site'); 
+        $this->rulestype[2] = get_string('customfield', 'local_saml_site'); 
     }
 
     /**

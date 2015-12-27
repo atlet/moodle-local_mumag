@@ -13,6 +13,14 @@ class local_saml_site_addnewrule_form extends moodleform {
         
         $rulestype = array();
         $rulestype[1] = get_string('usernamedomainname', 'local_saml_site'); 
+        $rulestype[2] = get_string('customfield', 'local_saml_site');
+        
+        $customFieldsDB = $DB->get_records("user_info_field", null, null, 'name, shortname');
+        
+        $customFields = array();
+        foreach ($customFieldsDB as $value) {
+            $customFields[$value->shortname] = $value->name;
+        }
         
         $mform = $this->_form;
 
@@ -22,6 +30,10 @@ class local_saml_site_addnewrule_form extends moodleform {
         $mform->addElement('select', 'ruletype', get_string('ruletype', 'local_saml_site'), $rulestype);
         $mform->setDefault('ruletype', 1);
         $mform->addRule('ruletype', null, 'required', null, 'client');
+        
+        $mform->addElement('select', 'customprofilefield', get_string('customprofilefield', 'local_saml_site'), $customFields);
+        $mform->addRule('customprofilefield', null, 'required', null, 'client');
+        $mform->disabledIf('customprofilefield', 'ruletype', 'neq', 2);
         
         $mform->addElement('text', 'rule', get_string('rule', 'local_saml_site'), array('size' => '64'));
         $mform->addRule('rule', null, 'required', null, 'client');

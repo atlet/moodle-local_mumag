@@ -65,6 +65,21 @@ function xmldb_local_saml_site_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2015111901, 'local', 'saml_site');
     }
 
+    if ($oldversion < 2015122401) {
+
+        // Define field customprofilefield to be added to local_saml_site_rules.
+        $table = new xmldb_table('local_saml_site_rules');
+        $field = new xmldb_field('customprofilefield', XMLDB_TYPE_CHAR, '255', null, null, null, null, 'ruletype');
+
+        // Conditionally launch add field customprofilefield.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Saml_site savepoint reached.
+        upgrade_plugin_savepoint(true, 2015122401, 'local', 'saml_site');
+    }
+
     return true;
 }
 

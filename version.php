@@ -21,7 +21,7 @@
  */
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2015121000;
+$plugin->version = 2015122401;
 $plugin->requires = 2013111800; // Moodle 2.6.0 or newer
 $plugin->component = 'local_saml_site';
 $plugin->maturity = MATURITY_ALPHA;
