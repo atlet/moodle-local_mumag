@@ -32,7 +32,6 @@ class local_saml_site_addnewrule_form extends moodleform {
         $mform->addRule('ruletype', null, 'required', null, 'client');
         
         $mform->addElement('select', 'customprofilefield', get_string('customprofilefield', 'local_saml_site'), $customFields);
-        $mform->addRule('customprofilefield', null, 'required', null, 'client');
         $mform->disabledIf('customprofilefield', 'ruletype', 'neq', 2);
         
         $mform->addElement('text', 'rule', get_string('rule', 'local_saml_site'), array('size' => '64'));
