@@ -21,7 +21,7 @@
  */
 defined('MOODLE_INTERNAL') || die();
 
-function local_saml_site_extends_settings_navigation($settingsnav, $context) {
+function local_saml_site_extend_settings_navigation($settingsnav, $context) {
     global $CFG, $PAGE;
 
     if (has_capability('local/saml_site:addrules', context_course::instance($PAGE->course->id))) {
